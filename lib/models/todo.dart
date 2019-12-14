@@ -1,5 +1,8 @@
 import 'package:hive/hive.dart';
+import 'status.dart';
 
+//Generate Adapter run:
+//flutter packages pub run build_runner build
 part "todo.g.dart";
 
 @HiveType()
@@ -11,8 +14,16 @@ class Todo extends HiveObject{
   String description;
 
   @HiveField(2)
-  String status;
+  Status status;
 
   @HiveField(3)
-  String type;  
+  String type;
+
+  Todo clone(){
+    return Todo()
+      ..title       = this.title
+      ..description = this.description
+      ..status      = this.status
+      ..type        = this.type;
+  }
 }

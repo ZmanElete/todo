@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'pages/add.dart';
 import 'pages/home.dart';
 import 'pages/organize.dart';
 import 'pages/work.dart';
@@ -29,6 +30,11 @@ class TodoApp extends StatelessWidget {
           case 'work':
             return MaterialPageRoute(
               builder: (context) => WorkPage(),
+            );
+            break;
+          case 'add':
+            return MaterialPageRoute(
+              builder: (context) => AddPage(),
             );
             break;
           case 'home':

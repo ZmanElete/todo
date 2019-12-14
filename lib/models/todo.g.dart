@@ -16,7 +16,7 @@ class TodoAdapter extends TypeAdapter<Todo> {
     return Todo()
       ..title = fields[0] as String
       ..description = fields[1] as String
-      ..status = fields[2] as String
+      ..status = fields[2] as Status
       ..type = fields[3] as String;
   }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import '../models/todo.dart';
 
 class TodoCard extends StatefulWidget{
@@ -16,6 +17,8 @@ class TodoCard extends StatefulWidget{
 class _AddTodoCardState extends State<TodoCard>{
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      color: Colors.green
+    );
   }
 }
