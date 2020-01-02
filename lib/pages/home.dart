@@ -39,7 +39,7 @@ class HomePage extends StatelessWidget {
         color: AppTheme.logoBlue,
         child: Text(title),
         onPressed: () {
-          Navigator.pushNamed(context, title.toLowerCase());
+          Navigator.pushNamed(context, title);
         },
       ),
     );

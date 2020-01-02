@@ -37,13 +37,13 @@ class AppPageState extends State<AppPage> {
       centerTitle: true,
       title: Text("Todo App"),
       leading: widget.poppable
-          ? null
-          : IconButton(
+          ? IconButton(
               icon: Icon(Icons.arrow_back_ios),
               onPressed: () {
                 Navigator.pop(context);
               },
-            ),
+            )
+          : null,
       actions: <Widget>[
         if (widget.customActions != null) ...widget.customActions,
       ],

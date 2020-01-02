@@ -22,22 +22,22 @@ class TodoApp extends StatelessWidget {
       onGenerateRoute: (RouteSettings routeSettings) {
         Map<String, dynamic> args = routeSettings.arguments;
         switch (routeSettings.name) {
-          case 'organize':
+          case 'Organize':
             return MaterialPageRoute(
               builder: (context) => OrganizationPage(),
             );
             break;
-          case 'work':
+          case 'Work':
             return MaterialPageRoute(
               builder: (context) => WorkPage(),
             );
             break;
-          case 'add':
+          case 'Add':
             return MaterialPageRoute(
               builder: (context) => AddPage(),
             );
             break;
-          case 'home':
+          case 'Home':
           default:
             return MaterialPageRoute(
               builder: (context) => HomePage(),

@@ -5,7 +5,7 @@ import 'package:hive/hive.dart';
 //flutter packages pub run build_runner build
 part 'status.g.dart';
 
-enum StatusType{
+enum StatusType {
   done,
   todo,
   reminder,
@@ -14,47 +14,55 @@ enum StatusType{
 }
 
 @HiveType()
-class Status{
+class Status {
   @HiveField(0)
   StatusType _status;
   @HiveField(1)
   Color _color;
-  
-  Status({StatusType status}){
-    _status = status;
+
+  Status({StatusType status, String statusString}) {
+    if (status != null) _status = status;
+    else if (statusString != null) {
+      _status = StatusType.values.firstWhere((x) => (x.toString() == statusString));
+    }
     _setColor();
   }
-  Status.done(){
+  Status.done() {
     _status = StatusType.done;
+    _setColor();
   }
-  Status.todo(){
+  Status.todo() {
     _status = StatusType.todo;
+    _setColor();
   }
-  Status.reminder(){
+  Status.reminder() {
     _status = StatusType.reminder;
+    _setColor();
   }
-  Status.onHold(){
+  Status.onHold() {
     _status = StatusType.onHold;
+    _setColor();
   }
-  Status.doing(){
+  Status.doing() {
     _status = StatusType.doing;
+    _setColor();
   }
 
-  Color get color{
+  Color get color {
     return _color;
   }
 
-  StatusType get status{
+  StatusType get statusType {
     return _status;
   }
 
-  set status(StatusType status){
+  set statusType(StatusType status) {
     _status = status;
     _setColor();
   }
 
-  void _setColor(){
-    switch(_status){
+  void _setColor() {
+    switch (_status) {
       case StatusType.done:
         _color = Colors.white;
         break;
