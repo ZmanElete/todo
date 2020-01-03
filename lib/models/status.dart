@@ -5,81 +5,71 @@ import 'package:hive/hive.dart';
 //flutter packages pub run build_runner build
 part 'status.g.dart';
 
+@HiveType()
 enum StatusType {
+  @HiveField(0)
   Todo,
+  @HiveField(1)
   Done,
+  @HiveField(2)
   Reminder,
+  @HiveField(3)
   On_Hold,
+  @HiveField(4)
   Doing,
 }
 
 @HiveType()
 class Status {
   @HiveField(0)
-  StatusType _status;
-  @HiveField(1)
-  Color _color;
+  StatusType status;
 
-  Status({StatusType status, String statusString}) {
-    if (status != null) _status = status;
-    else if (statusString != null) {
-      _status = StatusType.values.firstWhere((x) => (x.toString() == statusString));
-    }
-    _setColor();
+  // Status();
+  Status({StatusType status,}) {
+    status = status;
+  }
+  Status.string({@required String statusString}){
+    status = StatusType.values.firstWhere((x) => (x.toString() == statusString));
   }
   Status.done() {
-    _status = StatusType.Done;
-    _setColor();
+    status = StatusType.Done;
   }
   Status.todo() {
-    _status = StatusType.Todo;
-    _setColor();
+    status = StatusType.Todo;
   }
   Status.reminder() {
-    _status = StatusType.Reminder;
-    _setColor();
+    status = StatusType.Reminder;
   }
   Status.onHold() {
-    _status = StatusType.On_Hold;
-    _setColor();
+    status = StatusType.On_Hold;
   }
   Status.doing() {
-    _status = StatusType.Doing;
-    _setColor();
+    status = StatusType.Doing;
   }
 
-  Color get color {
-    return _color;
+  String toReadableString(){
+    return status.toString().split('.')[1].replaceAll('_', ' ');
   }
 
-  StatusType get statusType {
-    return _status;
-  }
-
-  set statusType(StatusType status) {
-    _status = status;
-    _setColor();
-  }
-
-  void _setColor() {
-    switch (_status) {
+  Color get color{
+    switch (status) {
       case StatusType.Done:
-        _color = Colors.greenAccent[200];
+        return Colors.green;
         break;
       case StatusType.Todo:
-        _color = Colors.grey[300];
+        return Colors.deepPurpleAccent[100];
         break;
       case StatusType.Reminder: 
-        _color = Colors.yellowAccent[100];
+        return Colors.teal;
         break;
       case StatusType.On_Hold:
-        _color = Colors.orangeAccent[200];
+        return Colors.orangeAccent[200];
         break;
       case StatusType.Doing:
-        _color = Colors.blueAccent[200];
+        return Colors.blueAccent[200];
         break;
       default:
-        _color = Colors.redAccent[200];
+        return Colors.redAccent[200];
         break;
     }
   }

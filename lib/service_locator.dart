@@ -12,5 +12,5 @@ Future<void> registerServices() async {
   hiveService.init();
   sl.registerSingleton(hiveService);
   var todos = List<Todo>.from(hiveService.todos?.get('todos') ?? List<Todo>());
-  if(todos != null) sl.registerSingleton(TodoManager(todos: todos));
+  if(todos != null) sl.registerSingleton(TodoManager(todos: todos, hiveService: hiveService));
 }

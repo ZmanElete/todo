@@ -23,12 +23,8 @@ class AppPageState extends State<AppPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _appBar(context),
-      body: Column(
-        children: <Widget>[
-          Expanded(child: widget.body),
-        ],
-      ),
+      appBar: _appBar(context), 
+      body: widget.body
     );
   }
 

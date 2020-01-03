@@ -1,4 +1,6 @@
-import 'package:todo/services/hive_service.dart';
+import 'package:flutter/foundation.dart';
+
+import '../services/hive_service.dart';
 
 import '../models/todo.dart';
 
@@ -6,7 +8,7 @@ class TodoManager{
   List<Todo> _todos;
   HiveService _hiveService;
 
-  TodoManager({List<Todo> todos, HiveService hiveService}){
+  TodoManager({@required List<Todo> todos, @required HiveService hiveService}){
     _todos = todos;
     _hiveService = hiveService;
   }

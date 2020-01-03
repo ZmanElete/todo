@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:todo/managers/todo_manager.dart';
-import 'package:todo/models/todo.dart';
 
 import '../service_locator.dart';
-import '../services/hive_service.dart';
 import '../widgets/card.dart';
 import '../widgets/app_page.dart';
+import '../managers/todo_manager.dart';
+import '../models/todo.dart';
 
 class OrganizationPage extends StatefulWidget {
   @override
@@ -19,24 +18,24 @@ class _AddOrganizationState extends State<OrganizationPage> {
   void initState() {
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return AppPage(
       poppable: true,
       customActions: _buildCustomActions(),
       body: Container(
+        padding: EdgeInsets.all(25),
         alignment: Alignment.center,
         child: Column(
-          children: <Widget>[
-            ..._getCards(),
-          ],
+          children: _getCards(),
         ),
       ),
     );
   }
 
-  List<Widget> _buildCustomActions(){
-    return[
+  List<Widget> _buildCustomActions() {
+    return [
       GestureDetector(
         onTap: _addTodo,
         child: Padding(
@@ -44,19 +43,25 @@ class _AddOrganizationState extends State<OrganizationPage> {
           child: Icon(
             Icons.add,
             size: 30,
-          )
-        )
-      )
+          ),
+        ),
+      ),
     ];
   }
 
   void _addTodo() async {
-    await Navigator.pushNamed(context, 'Add') ;
-    // setState((){});
+    await Navigator.pushNamed(context, 'Add');
+    todos = sl.get<TodoManager>().todos; //updates db
+    setState(() {});
   }
 
   List<Widget> _getCards() {
-    List<Widget> todoCards = todos.map((todo) => TodoCard(todo: todo)).toList();
+    List<Widget> todoCards = todos
+        .map((todo) => TodoCard(
+              todo: todo,
+              minifiable: true,
+            ))
+        .toList();
     return todoCards;
   }
 }

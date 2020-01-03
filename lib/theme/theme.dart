@@ -11,9 +11,23 @@ class AppTheme {
   static Color get fgDarkGray => Color.fromARGB(255, 36, 39, 40);
   static Color get darkBlue => Color.fromARGB(255, 60, 107, 223);
   static Color get lightRed => Color.fromARGB(255, 230, 65, 87);
+
+  static TextTheme textTheme =  TextTheme(
+      body1: TextStyle(color: Colors.white),
+      body2: TextStyle(color: Colors.white),//TextStyle(color: Color.fromARGB(255, 226, 226, 226)),
+      caption: TextStyle(color:  Colors.white),
+      title: TextStyle(color:  Colors.white),
+      subtitle: TextStyle(color:  Colors.white),
+      button: TextStyle(color: Colors.white),
+      display1: TextStyle(color: logoBlue, fontSize: 14),
+      display2: TextStyle(color: Colors.white),
+      headline: TextStyle(color: Colors.white),
+      overline: TextStyle(color: Colors.white),
+      subhead: TextStyle(color: Colors.white),
+    );
   
   static ThemeData get theme => ThemeData(
-    brightness: Brightness.dark,
+    // brightness: Brightness.dark,
     dividerColor: Color.fromARGB(255, 198, 198, 198),
     primaryColor: Color.fromARGB(255, 57, 60, 65),
     accentColor: Colors.blue, 
@@ -21,6 +35,12 @@ class AppTheme {
     dialogBackgroundColor: Colors.white,
     cardColor: Colors.blue,
     hintColor: Color.fromARGB(255, 114, 122, 135),
+    scaffoldBackgroundColor: Color.fromARGB(255, 46, 46, 46),
+    secondaryHeaderColor: Colors.white,
+    primaryTextTheme: textTheme,
+    textSelectionColor: Color.fromARGB(255, 46, 46, 46),
+    textSelectionHandleColor: Color.fromARGB(255, 46, 46, 46),
+    accentTextTheme: textTheme,
 
     inputDecorationTheme: InputDecorationTheme(
       border: new OutlineInputBorder(
@@ -30,21 +50,13 @@ class AppTheme {
       ),
       contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 16.5),
     ),
+    cursorColor: logoBlue,
 
+    cardTheme: CardTheme(
+      elevation: 10
 
-    textTheme: TextTheme(
-      body1: TextStyle(color: Colors.white),
-      body2: TextStyle(color: Color.fromARGB(255, 226, 226, 226)),
-      caption: TextStyle(color: Color.fromARGB(255, 57, 60, 65)),
-      title: TextStyle(color: Color.fromARGB(255, 57, 60, 65)),
-      subtitle: TextStyle(color: Color.fromARGB(255, 57, 60, 65)),
-      button: TextStyle(color: Colors.white),
-      display1: TextStyle(color: logoBlue, fontSize: 14),
-      display2: TextStyle(color: Colors.white),
-      headline: TextStyle(color: Colors.white),
-      overline: TextStyle(color: Colors.white),
-      subhead: TextStyle(color: Colors.white),
     ),
+    textTheme:textTheme,
 
   );
 

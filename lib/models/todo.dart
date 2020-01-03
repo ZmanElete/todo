@@ -16,21 +16,16 @@ class Todo extends HiveObject{
   @HiveField(2)
   Status status;
 
-  @HiveField(3)
-  String type;
-
-  Todo({status: Status, title: String, description: String, type: String}){
+  Todo({status: Status, title: String, description: String}){
     this.status = status ??= Status.todo();
     this.title = title ??= '';
     this.description = description ??= '';
-    this.type = type ??= '';
   }
 
   Todo clone(){
     return Todo()
       ..title       = this.title
       ..description = this.description
-      ..status      = this.status
-      ..type        = this.type;
+      ..status      = this.status;
   }
 }

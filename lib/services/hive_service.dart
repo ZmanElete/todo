@@ -12,6 +12,7 @@ class HiveService {
     Hive.init(dir.path);
     Hive.registerAdapter(TodoAdapter(), 1);
     Hive.registerAdapter(StatusAdapter(), 2);
+    Hive.registerAdapter(StatusTypeAdapter(), 3);
     todos = await Hive.openBox('todos');
   }
 }
