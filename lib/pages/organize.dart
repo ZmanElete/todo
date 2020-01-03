@@ -51,8 +51,8 @@ class _AddOrganizationState extends State<OrganizationPage> {
   }
 
   void _addTodo() async {
-    dynamic newTodo = await Navigator.pushNamed(context, 'Add') ;
-    print("YOU SHALL NOT PASS");
+    await Navigator.pushNamed(context, 'Add') ;
+    // setState((){});
   }
 
   List<Widget> _getCards() {

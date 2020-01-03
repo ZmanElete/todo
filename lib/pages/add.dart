@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo/widgets/app_page.dart';
 
 import '../managers/todo_manager.dart';
 import '../models/status.dart';
@@ -15,49 +16,113 @@ class AddPage extends StatefulWidget {
 }
 
 class _AddAddState extends State<AddPage> {
-  final formKey = GlobalKey<FormState>();
   List<Todo> todos = sl.get<TodoManager>().todos;
   Status status = Status.todo();
+  final titleController = TextEditingController();
+  final descriptionController = TextEditingController();
+
+  @override
+  void dispose() {
+    titleController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    Todo todo = widget.todo != null ? widget.todo : Todo();
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
-      child: Card(
-        color: status.color,
-        child: Form(
-          key: formKey,
+    return AppPage(
+      poppable: true,
+      customActions: _buildCustomActions(),
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
+        child: Card(
+          color: status.color,
           child: Column(
             children: <Widget>[
-              TextFormField(
+              TextField(
                 autofocus: true,
                 decoration: InputDecoration(
                   hintText: "Title",
                 ),
-                readOnly: false,
+                controller: titleController,
               ),
-              TextFormField(
+              TextField(
                 decoration: InputDecoration(hintText: "Descriptions"),
-                readOnly: false,
+                controller: descriptionController,
               ),
-              DropdownButtonFormField(
-                value: status.statusType.toString(),
-                items: StatusType.values.map((StatusType statusType) {
-                  return DropdownMenuItem<StatusType>(
-                    value: statusType,
-                    child: Text(statusType.toString()),
-                  );
-                }).toList(),
-                onChanged: (newStatus) {
-                  status = Status(status: newStatus);
-                  setState(() {});
-                },
-              ),
+              _buildDropDownButton(),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  List<Widget> _buildCustomActions(){
+    return <Widget>[
+      GestureDetector(
+        onTap: _saveTodo,
+        child: Padding(
+          padding: EdgeInsets.all(5),
+          child: Icon(
+            Icons.check,
+            size: 30,
+          )
+        )
+      ),
+      GestureDetector(
+        onTap: _deleteTodo,
+        child: Padding(
+          padding: EdgeInsets.all(5),
+          child: Icon(
+            Icons.close,
+            size: 30,
+          )
+        )
+      ),
+    ];
+  }
+
+  void _saveTodo(){
+    Todo todo = _getTodo();
+    if(widget.todo != null){
+      widget.todo.status = todo.status;
+      widget.todo.title = todo.title;
+      widget.todo.description = todo.description;
+    }
+    else{
+      todos.add(todo);
+    }
+    Navigator.pop(context);
+  }
+
+  void _deleteTodo(){
+    Todo todo = _getTodo();
+    if(todos.contains(todo)){
+      todos.remove(todo);
+    }
+    Navigator.pop(context);
+  }
+
+  Todo _getTodo(){
+    String title = titleController.text;
+    String description = descriptionController.text;
+    return Todo(status:status, title:title, description: description);
+  }
+
+  Widget _buildDropDownButton() {
+    return DropdownButton(
+      value: status.statusType,
+      items: StatusType.values.map((StatusType statusType) {
+        return DropdownMenuItem<StatusType>(
+          value: statusType,
+          child: Text(statusType.toString().split('.')[1].replaceAll('_', ' ')),
+        );
+      }).toList(),
+      onChanged: (newStatus) {
+        setState(() {
+          status = Status(status: newStatus);
+        });
+      },
     );
   }
 }

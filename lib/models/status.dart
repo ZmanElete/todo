@@ -6,11 +6,11 @@ import 'package:hive/hive.dart';
 part 'status.g.dart';
 
 enum StatusType {
-  done,
-  todo,
-  reminder,
-  onHold,
-  doing,
+  Todo,
+  Done,
+  Reminder,
+  On_Hold,
+  Doing,
 }
 
 @HiveType()
@@ -28,23 +28,23 @@ class Status {
     _setColor();
   }
   Status.done() {
-    _status = StatusType.done;
+    _status = StatusType.Done;
     _setColor();
   }
   Status.todo() {
-    _status = StatusType.todo;
+    _status = StatusType.Todo;
     _setColor();
   }
   Status.reminder() {
-    _status = StatusType.reminder;
+    _status = StatusType.Reminder;
     _setColor();
   }
   Status.onHold() {
-    _status = StatusType.onHold;
+    _status = StatusType.On_Hold;
     _setColor();
   }
   Status.doing() {
-    _status = StatusType.doing;
+    _status = StatusType.Doing;
     _setColor();
   }
 
@@ -63,20 +63,20 @@ class Status {
 
   void _setColor() {
     switch (_status) {
-      case StatusType.done:
-        _color = Colors.white;
-        break;
-      case StatusType.todo:
-        _color = Colors.purpleAccent[200];
-        break;
-      case StatusType.reminder:
-        _color = Colors.blueAccent[250];
-        break;
-      case StatusType.onHold:
-        _color = Colors.yellowAccent[200];
-        break;
-      case StatusType.doing:
+      case StatusType.Done:
         _color = Colors.greenAccent[200];
+        break;
+      case StatusType.Todo:
+        _color = Colors.grey[300];
+        break;
+      case StatusType.Reminder: 
+        _color = Colors.yellowAccent[100];
+        break;
+      case StatusType.On_Hold:
+        _color = Colors.orangeAccent[200];
+        break;
+      case StatusType.Doing:
+        _color = Colors.blueAccent[200];
         break;
       default:
         _color = Colors.redAccent[200];
