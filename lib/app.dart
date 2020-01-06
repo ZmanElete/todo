@@ -20,7 +20,7 @@ class TodoApp extends StatelessWidget {
       // home: HomePage(),
       initialRoute: 'start',
       onGenerateRoute: (RouteSettings routeSettings) {
-        // Map<String, dynamic> args = routeSettings.arguments;
+        Map<String, dynamic> args = routeSettings.arguments ?? Map<String,dynamic>();
         switch (routeSettings.name) {
           case 'Organize':
             return MaterialPageRoute(
@@ -34,7 +34,7 @@ class TodoApp extends StatelessWidget {
             break;
           case 'Add':
             return MaterialPageRoute(
-              builder: (context) => AddPage(),
+              builder: (context) => AddPage(todo: args['todo'],),
             );
             break;
           case 'Home':

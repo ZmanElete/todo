@@ -5,11 +5,13 @@ import '../models/todo.dart';
 class TodoCard extends StatefulWidget {
   final Todo todo;
   final bool minifiable;
+  final Function onChange;
 
   TodoCard({
     Key key,
     @required this.todo,
     this.minifiable,
+    this.onChange,
   }) : super(key: key);
 
   @override
@@ -23,8 +25,8 @@ class _AddTodoCardState extends State<TodoCard> {
   Widget build(BuildContext context) {
     if (mini == null) mini = widget.minifiable ?? false;
     return Container(
-      height: mini ?? false ? 70 : 200,
-      padding: EdgeInsets.only(bottom: 10),
+      height: mini ?? false ? 71 : 200,
+      padding: EdgeInsets.symmetric(vertical: 5),
       child: Card(
         color: widget.todo.status.color,
         child: Padding(
@@ -42,19 +44,28 @@ class _AddTodoCardState extends State<TodoCard> {
       Row(
         children: <Widget>[
           Expanded(
-            child: Container(
-              padding: EdgeInsets.all(10),
-              child: Text(
-                widget.todo.title,
-                style: TextStyle(fontSize: 18),
+            child: GestureDetector(
+              onDoubleTap: _editTodo,
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Container(
+                      padding: EdgeInsets.all(10),
+                      child: Text(
+                        widget.todo.title,
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    child: Text(
+                      widget.todo.status.toReadableString(),
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.all(10),
-            child: Text(
-              widget.todo.status.toReadableString(),
-              style: TextStyle(fontSize: 18),
             ),
           ),
           widget.minifiable
@@ -91,8 +102,13 @@ class _AddTodoCardState extends State<TodoCard> {
     ];
   }
 
+  void _editTodo() async {
+    await Navigator.pushNamed(context, 'Add', arguments: {'todo': widget.todo});
+    setState((){widget.onChange();});
+  }
+
   void _dropButton() {
     mini = !mini;
-    setState((){});
+    setState(() {});
   }
 }

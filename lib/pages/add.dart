@@ -18,8 +18,19 @@ class AddPage extends StatefulWidget {
 class _AddAddState extends State<AddPage> {
   List<Todo> todos = sl.get<TodoManager>().todos;
   Status status = Status.todo();
-  final titleController = TextEditingController();
-  final descriptionController = TextEditingController();
+  TextEditingController titleController;
+  TextEditingController descriptionController;
+  Todo todo;
+
+  @override
+  void initState() {
+    todo = widget.todo ?? Todo();
+    this.titleController = TextEditingController(text: todo.title);
+    this.descriptionController = TextEditingController(text: todo.description);
+    this.status = todo.status;
+
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -32,58 +43,19 @@ class _AddAddState extends State<AddPage> {
     return AppPage(
       poppable: true,
       customActions: _buildCustomActions(),
-      body: Container(
-        padding: EdgeInsets.all(25),
-        height: 400,
-        child: Card(
-          color: status.color,
-          child: Column(
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Flexible(
-                    flex: 2,
-                    child: Padding(
-                      padding: EdgeInsets.all(5),
-                      child: TextField(
-                        controller: titleController,
-                        autofocus: true,
-                        decoration: InputDecoration(
-                          hintText: "Title",
-                          hintStyle: TextStyle(
-                            color: Color.fromARGB(170, 255, 255, 255),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  // Spacer(flex: 1),
-                  Flexible(
-                    flex: 1,
-                    child: Padding(
-                      padding: EdgeInsets.all(5),
-                      child: _buildDropDownButton(),
-                    ),
-                  ),
-                ],
+      body: ListView(
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+            height: 400,
+            child: Card(
+              color: status.color,
+              child: Column(
+                children: _buildContent(),
               ),
-              Padding(
-                padding: EdgeInsets.all(5),
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: "Descriptions",
-                    hintStyle: TextStyle(
-                      color: Color.fromARGB(170, 255, 255, 255),
-                    ),
-                  ),
-                  minLines: 12,
-                  maxLines: 12,
-                  controller: descriptionController,
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
@@ -111,6 +83,62 @@ class _AddAddState extends State<AddPage> {
               ))),
       SizedBox(height: 5, width: 5),
     ];
+  }
+
+  List<Widget> _buildContent() {
+    return <Widget>[
+      _buildHeader(),
+      _buildBody(),
+    ];
+  }
+
+  Widget _buildHeader() {
+    return Row(
+      children: <Widget>[
+        Flexible(
+          flex: 2,
+          child: Padding(
+            padding: EdgeInsets.all(5),
+            child: TextField(
+              controller: titleController,
+              autofocus: true,
+              decoration: InputDecoration(
+                hintText: "Title",
+                hintStyle: _buildHintStyle(),
+              ),
+            ),
+          ),
+        ),
+        Flexible(
+          flex: 1,
+          child: Padding(
+            padding: EdgeInsets.all(5),
+            child: _buildDropDownButton(),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildBody() {
+    return Padding(
+      padding: EdgeInsets.all(5),
+      child: TextField(
+        decoration: InputDecoration(
+          hintText: "Descriptions",
+          hintStyle: _buildHintStyle(),
+        ),
+        minLines: 12,
+        maxLines: 12,
+        controller: descriptionController,
+      ),
+    );
+  }
+
+  TextStyle _buildHintStyle() {
+    return TextStyle(
+      color: Color.fromARGB(170, 255, 255, 255),
+    );
   }
 
   void _saveTodo() {

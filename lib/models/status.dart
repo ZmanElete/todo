@@ -22,7 +22,7 @@ enum StatusType {
 @HiveType()
 class Status {
   @HiveField(0)
-  StatusType status;
+  @required StatusType status;
 
   // Status();
   Status({StatusType status,}) {

@@ -9,7 +9,7 @@ GetIt sl = GetIt.I;
 
 Future<void> registerServices() async {
   var hiveService = HiveService();
-  hiveService.init();
+  await hiveService.init();
   sl.registerSingleton(hiveService);
   var todos = List<Todo>.from(hiveService.todos?.get('todos') ?? List<Todo>());
   if(todos != null) sl.registerSingleton(TodoManager(todos: todos, hiveService: hiveService));
