@@ -79,10 +79,23 @@ class _AddOrganizationState extends State<OrganizationPage> {
     List<Todo> todos,
     List<dynamic> something,
     int i,
-  ){
-    return Container(
-      height: 100,
-    );
+  ) {
+    return Column(children: <Widget>[
+      dragIndex == i
+          ? Divider(
+              color: AppTheme.theme.dividerColor,
+              height: 5,
+              indent: 0,
+              endIndent: 0,
+              thickness: 4,
+            )
+          : Container(
+              height: 5,
+            ),
+      Expanded(
+        child: Container(),
+      ),
+    ]);
   }
 
   Widget _buildDragTarget(int i, Widget Function(BuildContext, List<Todo>, List<dynamic>) builder) {
@@ -158,8 +171,9 @@ class _AddOrganizationState extends State<OrganizationPage> {
 
   void _onAcceptDragTarget(Todo dragged, int i) {
     setState(() {
+      int oldI = todos.indexOf(dragged);
       todos.removeWhere((todo) => dragged == todo);
-      todos.insert(i, dragged);
+      todos.insert(oldI < i ? i - 1 : i, dragged);
       sl.get<TodoManager>().todos = todos;
       dragIndex = null;
     });
