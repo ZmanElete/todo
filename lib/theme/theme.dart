@@ -13,17 +13,17 @@ class AppTheme {
   static Color get lightRed => Color.fromARGB(255, 230, 65, 87);
 
   static TextTheme textTheme =  TextTheme(
-      body1: TextStyle(color: Colors.white),
-      body2: TextStyle(color: Colors.white),//TextStyle(color: Color.fromARGB(255, 226, 226, 226)),
+      bodyText1: TextStyle(color: Colors.white),
+      bodyText2: TextStyle(color: Colors.white),//TextStyle(color: Color.fromARGB(255, 226, 226, 226)),
       caption: TextStyle(color:  Colors.white),
-      title: TextStyle(color:  Colors.white),
-      subtitle: TextStyle(color:  Colors.white),
+      headline1: TextStyle(color:  Colors.white),
+      subtitle2: TextStyle(color:  Colors.white),
       button: TextStyle(color: Colors.white),
-      display1: TextStyle(color: logoBlue, fontSize: 14),
-      display2: TextStyle(color: Colors.white),
-      headline: TextStyle(color: Colors.white),
+      headline4: TextStyle(color: logoBlue, fontSize: 14),
+      headline3: TextStyle(color: Colors.white),
+      headline5: TextStyle(color: Colors.white),
       overline: TextStyle(color: Colors.white),
-      subhead: TextStyle(color: Colors.white),
+      subtitle1: TextStyle(color: Colors.white),
     );
   
   static ThemeData get theme => ThemeData(

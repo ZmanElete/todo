@@ -97,7 +97,7 @@ class _AddOrganizationState extends State<OrganizationPage> {
       onAccept: (Todo todo) {
         _onAcceptDragTarget(todo, i);
       },
-      onLeave: (Todo todo) {
+      onLeave: (obj) {
         dragIndex = null;
         setState(() {});
       },
